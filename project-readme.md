@@ -13,13 +13,16 @@ In this game there's a pelican swimming in the lake. The player should move this
 
 
 ## MVP (DOM - CANVAS)
-pelican that moves from left to right
-pelican's beak open and closes (OPTIONAL)
-stars twinkling
-stars fall down randomly one by one
-increasing spead of the falling stars after some time
-pelican cathes the stars
-score registration during the game
+1) stars twinkling
+2) stars fall down randomly one by one
+3) pelican moves from left to right to cath the stars
+5) score registration during the game
+
+(OPTIONAL) - obstacle ––> bird appears from right to left and poops ––> pelican must avoid it
+(OPTIONAL) - 1 missed star, than moon falls down which means end of game
+(OPTIONAL) - increasing spead of the falling stars after some time
+(OPTIONAL) - pelican's beak open and closes to catch the stars
+
 
 ## Backlog
 
@@ -27,7 +30,7 @@ score registration during the game
 ## Data structure
 main.js() {}
 buildCanvas
-buildSplashScreen () {}
+buildStartScreen () {}
 buildGameScreen () {}
 buildGameOverScreen () {}
 
@@ -52,7 +55,32 @@ gameScreen
 gameOverScreen
 
 ## Task
-main - add pictures in images
+(startScreen)
+1] set canvas and add background color
+2] timeOut() {} for intro game (first)
+3] timeOut() {} for button game (second)
+4] addEventListner() {} to switch to the gameScreen
+
+(gameScreen)
+A]
+1] draw dots for stars
+2] make class star and create instances 
+3] put the instances (of class star) in an array and make a function so that the stars can change between two colors (twinnkle) ––> (function inside class)
+4] make function this instances (of class star) move down the y randomly ––> (function inside class)
+
+B]
+1] make class pelican and create an instance 
+2] function for moving pelican from right to left ––> (function inside class)
+
+C]
+1] function that calculates the score whenever star reaches the pelican beak, when star dont reaches the pelican beak  ––> message end of game or moon falls down and redirected to the gameOverScreen
+
+(gameOverScreen)
+A]
+1]  gameOverScreen shows the end score
+
+
+<!-- main - add pictures in images
 main - build startScreen html & css
 main - build GameScreen html & css
 main - build GameOverScreen html & css
@@ -67,7 +95,7 @@ pelican - draw or images
 pelican - move
 pelicanbeak - move
 
-score - update
+score - update -->
 
 ## Links
 
