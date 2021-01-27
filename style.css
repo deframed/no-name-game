@@ -2,6 +2,8 @@ body, html {
     margin: 2em;
     padding: 0;
     color: whitesmoke;
+    font-family: 'Raleway', sans-serif;
+    font-size: 17;
 }
 
 .container-fluid {
@@ -20,4 +22,25 @@ body, html {
     justify-content: center;
     flex-direction: column;
     visibility: hidden;
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 100;
+}
+
+p {
+    font-size: 17px;
+    font-weight: 100;
+    text-align: center;
+}
+
+.btn-outline-light {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 100;
+  margin-top: 25px;
 }

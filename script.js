@@ -1,34 +1,56 @@
+// background starScreen
 let canvas = document.querySelector('canvas');
-canvas.style.backgroundColor = '#16193b';
+canvas.style.backgroundColor =  '#16193b';
+
+// elements gameScreen
+let pelicanImg = document.createElement('img');
+pelicanImg.src = 'images/imageedit_3_2691217019.gif';
+
+let grassImg = document.createElement('img');
+grassImg.src = 'images/pnghut_silhouette-royalty-free-photography-clip-art-royaltyfree-disorderly-grass.png';
+
+// elements draw 
 let ctx = canvas.getContext('2d')
 
+// elements startScreen
 let titleGame = document.querySelector('h1');
 let introGame = document.querySelector('p');
 let buttonStart = document.querySelector('.btn');
 
-let pelicanImg = document.createElement('img')
-pelicanImg.src = 'images/kisspng-pelican-bird-5b1e562e75a129.2236168915287147984818.png';
+// elements movement
+let intervalID= 0; //======================= ASK by deafault?
+let incrementY = 5; //======================= ASK dont see the increment?
+let incrementX = 5;
+let score = 0;
 
+// defined pelican co-ordinates at beginning of the game (startScreen)
+let pelicanX = 450;
+let pelicanY = 340; 
+let incrementPelican = 5; 
 
+// defined keys for movement
+let isRightArrow = false;
+let isLeftArrow = false;
 
+// pelican measurements
+let pelicanWidth = 130;
+let pelicanHeight = 130;
 
-
-
-// clear StartScreen
+// clear elements from screen
 function clearElem(elem) {
     let invisible = elem.style.display = 'none';
     return invisible;
 };
-
-// go ToGameScreen function
+// go to GameScreen background 
 function switchScreen() {
     canvas.style.background = 'url("./images/nacht-illustratie-met-volle-maan-en-sterren_104785-352.jpg") no-repeat';
     canvas.style.backgroundSize = "cover";  
-    }
+};
 
-//handle arrow key click events here
+// DEFINITION GAME CONTROL KEYS
+// handle arrow key click events left to right
 document.addEventListener('keydown', (event) => {
-    if (event.keyCode == 39 || event.key == "ArrowRight") {
+    if (event.keyCode == 39 || event.key == "ArrowRight") { 
        isRightArrow = true;
        isLeftArrow = false;
     }
@@ -37,33 +59,36 @@ document.addEventListener('keydown', (event) => {
        isLeftArrow = true;
     }
 });
+// when you release the keys, disable movement
+document.addEventListener('keyup', (event) => {
+    isRightArrow = false;
+    isLeftArrow = false;
+});
 
-//draw pelican function  =============================================> TO DO
-let incrementPelican = 3;  
+// draw pelican function  =============================================> TO DO can't manage rotation at end canvas
 
 function movePelican() {
-    ctx.drawImage(pelicanImg, 350, 300, 170, 170);
+// draw pelican - make pelican visible 
+    ctx.drawImage(pelicanImg, pelicanX, pelicanY, pelicanWidth, pelicanHeight); // image width and height is 170 , 170
+    ctx.drawImage(grassImg, 0, 0, 700, 575);    // image width and height is 170 , 170
 
-// pelican moves horizontally within the canvas stays
-if (isRightArrow && (pelicanX + pelican.width < canvas.width)) {
-    pelicanX += incrementPelican;
-    if (isRightArrow && (pelicanX + pelican.width === canvas.width)) {
-        ctx.drawImage.rotate(degrees * Math.PI/180);
+// pelican moves horizontally within the canvas 
+    if (isRightArrow && (pelicanX + 170 < canvas.width)) {  // pelicanX = left upper point img & 170 is total width img
+       pelicanX += incrementPelican;                       // position pelican incremented with defined value above (1 step = 13 px)  
     }
-}
-if (isLeftArrow && pelicanX > 0) {
-    pelicanX -= incrementPelican;
-    if (isLeftArrow && pelicanX === 0) {
-        ctx.drawImage.rotate(degrees * Math.PI/180);
+
+    else if (isLeftArrow && pelicanX > 0) {
+        pelicanX -= incrementPelican;
     }
-}
 };
 
-// draw stars function
+// create a random coordinate for star and put in an empty array
 let allStars = []; 
 
 function multiplyAndDrawStar() {
-    for (let i = 0; i < 40; i++) {
+// 1 star falling only from the coordinates set randomly below
+
+    for (let i = 0; i < 1; i++) {
 
         let r = Math.floor(Math.random() * (4 - 2 + 1) + 2);
         let x = Math.floor(Math.random() * (670 - 30 + 1) + 2);
@@ -72,15 +97,10 @@ function multiplyAndDrawStar() {
         let star = new Star(x, y, r, "whitesmoke");
         allStars.push(star);
     }
-        allStars.forEach(function(elem) {
-        elem.drawStar(elem);   
-    })
+// function for this set star to fall down
+    animate();
 };
 
-
-// loop over a allStars array and put them in an empty array
-// make stars move down along the y one step
-let gameOver = false;
 
 function starsMoving(arr) {
 
@@ -88,58 +108,72 @@ function starsMoving(arr) {
         return true;
     }
     for (let i = 0; i < arr.length; i++) {
-        console.log(arr[i].positionY)
         arr[i].positionY ++
-        console.log(arr[i].positionY)
-        // check if randomly picked star has reached a certain position
-        if (arr[i].y == 425) {
-            return true;
+       
+// check if randomly picked star has reached a certain position
+        if (arr[i].y == 4500) {
+            gameOver(); 
         }
         arr[i].drawStar(arr[i]);   
     }
-    return false;
 };
 
-let intervalID= 0; 
-let incrementY = 3;
-let incrementX = 3;
-let score = 0;
+function animate() {
+   let intervalID =  setInterval(() => {     
+       
+        ctx.clearRect(0, 0, canvas.width, canvas.height)    // clears the whole canvas
+        switchScreen();
+        movePelican();
 
-function messageWin() {
-    console.log("pelican has had enough snacks for now!");
-    console.log("thank you!");
-};
+// show the score
+    ctx.font = 'thin 35px Raleway, sans-serif';
+    ctx.fillText('\u2726  ' + score, 40, 450);
 
-// loop animation star clear after every step
-// check for bottom
 
-setInterval((arr) => {      //=================================> CHECK: score, stars falling, catched, missed
-    // show the score
-    ctx.font = '17px sans-serif';
-    ctx.fillText(score + ' stars', 50, 450);
+        for (let i = 0; i < allStars.length; i++) {
+            // star from array is beeing created
+              allStars[i].drawStar()
 
-    for (let i = 0; i < arr.length; i++) {
-        
-         // condition for star moving down
-         if (positionY + starRadius < canvas.height) {
-           incrementY ++;
-         // condition for star is catched by the pelican ––> score goes up by 1
-         if (positionX > pelicanX && positionX < pelicanX + pelican.width) {
-           score++;
-          }
-        // condition for missed star
-        else if (!(positionX > pelicanX && positionX < pelicanX + pelican.width)) {
-            clearInterval(intervalID)
-            gameOver();
-          }
-         // condition if all stars are catched
-         else {
-            messageWin();
-         }
-    }    
+             // condition for star moving down i step
+             if (allStars[i].positionY + allStars[i].starRadius <= canvas.height) {
+               allStars[i].positionY++; 
+
+             // condition for star is catched by the pelican ––> score goes up by 1
+                    if ((allStars[i].positionX > pelicanX 
+                        && allStars[i].positionX + allStars[i].starRadius < pelicanX + pelicanWidth) && 
+                        (allStars[i].positionY + allStars[i].starRadius > pelicanY)) {
+                        score++;
+                        // place the star at some random position outside the canvas
+                        allStars[i].positionY = 2000
+                    }     
+             }
+            
+              // condition for missed star
+            else if (allStars[i].positionY + allStars[i].starRadius >= canvas.height && 
+                (allStars[i].positionY + allStars[i].starRadius < 2000) ) {
+                clearInterval(intervalID);
+                gameOver();  
+            }
+            
+            // add new stars below
+            // check if the previus star has reached certain y co-ordinate
+            if (allStars[i].positionY == 200) {
+                let r = Math.floor(Math.random() * (4 - 2 + 1) + 2);
+                let x = Math.floor(Math.random() * (670 - 30 + 1) + 2);
+                let y = Math.floor(Math.random() * (175 - 30 + 1) + 2);
+    
+                let star = new Star(x, y, r, "whitesmoke");
+                allStars.push(star);
+            }
+        }
+    }, 15);
 }
-return false;
-}, 500);
+
+
+function gameOver() {
+        ctx.font = 'thin, 300px, Raleway';
+        ctx.fillText('game over', 400, 230);
+}   
 
 // visibility ON function
 function showElem(elem) {
@@ -168,6 +202,6 @@ buttonStart.addEventListener('click', () => {
     clearElem(introGame);
     clearElem(buttonStart);
     switchScreen();
-    multiplyAndDrawStar();
+    multiplyAndDrawStar();   
 });
 
