@@ -1,8 +1,3 @@
-
-
-
-
-
 // template for element star
 class Star {
     constructor(positionX, positionY, someRadius, someColor) {
@@ -27,5 +22,3 @@ class Star {
     }
     
 }
-
-// ctx.clearRect(0, 0, canvas.width, canvas.height)

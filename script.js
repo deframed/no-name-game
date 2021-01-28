@@ -16,15 +16,16 @@ let ctx = canvas.getContext('2d')
 let titleGame = document.querySelector('h1');
 let introGame = document.querySelector('p');
 let buttonStart = document.querySelector('.btn');
+let buttonAgain = document.querySelector('.btn-again');
 
 // elements movement
-let intervalID= 0; //======================= ASK by deafault?
-let incrementY = 5; //======================= ASK dont see the increment?
-let incrementX = 5;
+let intervalID= 0; 
+let incrementY = 3; 
+let incrementX = 3;
 let score = 0;
 
 // defined pelican co-ordinates at beginning of the game (startScreen)
-let pelicanX = 450;
+let pelicanX = 305;
 let pelicanY = 340; 
 let incrementPelican = 5; 
 
@@ -43,8 +44,10 @@ function clearElem(elem) {
 };
 // go to GameScreen background 
 function switchScreen() {
+    canvas.style.backgroundColor = 'transparent';
+    canvas.style.opacity = 1
     canvas.style.background = 'url("./images/nacht-illustratie-met-volle-maan-en-sterren_104785-352.jpg") no-repeat';
-    canvas.style.backgroundSize = "cover";  
+    canvas.style.backgroundSize = "cover";     
 };
 
 // DEFINITION GAME CONTROL KEYS
@@ -126,7 +129,7 @@ function animate() {
         movePelican();
 
 // show the score
-    ctx.font = 'thin 35px Raleway, sans-serif';
+    ctx.font = 'lighter 20px Raleway'; 
     ctx.fillText('\u2726  ' + score, 40, 450);
 
 
@@ -169,11 +172,23 @@ function animate() {
     }, 15);
 }
 
-
 function gameOver() {
-        ctx.font = 'thin, 300px, Raleway';
-        ctx.fillText('game over', 400, 230);
-}   
+        ctx.font = 'lighter 25px Raleway'; 
+        ctx.fillText('game over', 370, 210);
+
+        setTimeout(function() {
+            GameOverScreen();
+
+        }, 2000)       
+};   
+
+function GameOverScreen() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#16193b'
+    ctx.fillRect(0,0, canvas.width, canvas.height)
+    buttonAgain.style.visibility = 'visible';
+    buttonAgain.style.display = 'block';
+};
 
 // visibility ON function
 function showElem(elem) {
@@ -204,4 +219,15 @@ buttonStart.addEventListener('click', () => {
     switchScreen();
     multiplyAndDrawStar();   
 });
+
+buttonAgain.addEventListener('click', () => {      
+    clearElem(buttonAgain);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    allStars = []; 
+    pelicanX = 305;
+    switchScreen(); 
+    multiplyAndDrawStar();   
+}); 
+
+
 

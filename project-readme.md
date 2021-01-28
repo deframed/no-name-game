@@ -1,15 +1,11 @@
 
-Hey Luis,
-Eventually I chose for the first option, cause I think it's going to be challenging 
-enough for now. Made a plan, based on Jorge's plan. Probably left things out, so need to adjust it for sure. I hope to get a better overview on this along the way. Comments & suggestions are more than welcome :) 
-Have a nice weekend!
 
 
 # Project's name
-..........
+no name game
 
 ## Description
-In this game there's a pelican swimming in the lake. The player should move this pelican horizontally from one side to another. Above the pelican there's a sky full of twinkling stars. The stars are falling down one by one. The pelican must cath all the falling stars in his beak. The scoreboard shows how many stars the pelican managed to cath. One missed star, is end of game.
+In this game there's a pelican swimming in the lake. The player should move this pelican horizontally from one side to another. Above the pelican there's a sky full of twinkling stars. The stars are falling down one by one. The pelican must cath all the falling stars. The scoreboard shows how many stars the pelican managed to cath. One missed star, is end of game.
 
 
 ## MVP (DOM - CANVAS)
@@ -80,7 +76,8 @@ A]
 1]  gameOverScreen shows the end score
 
 
-<!-- main - add pictures in images
+<!-- 
+main - add pictures in images
 main - build startScreen html & css
 main - build GameScreen html & css
 main - build GameOverScreen html & css
@@ -95,7 +92,8 @@ pelican - draw or images
 pelican - move
 pelicanbeak - move
 
-score - update -->
+score - update
+ -->
 
 ## Links
 
