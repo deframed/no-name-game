@@ -9,6 +9,10 @@ pelicanImg.src = 'images/imageedit_3_2691217019.gif';
 let grassImg = document.createElement('img');
 grassImg.src = 'images/pnghut_silhouette-royalty-free-photography-clip-art-royaltyfree-disorderly-grass.png';
 
+// audio background
+let audio = new Audio('images/0105. Be Like a Child - AShamaluevMusic.mp3');
+audio.volume = 0.4;
+
 // elements draw 
 let ctx = canvas.getContext('2d')
 
@@ -20,11 +24,11 @@ let buttonAgain = document.querySelector('.btn-again');
 
 // elements movement
 let intervalID= 0; 
-let incrementY = 3; 
+let incrementY = 30; 
 let incrementX = 3;
 let score = 0;
 
-// defined pelican co-ordinates at beginning of the game (startScreen)
+// defined pelican coordinates at beginning of the game (startScreen)
 let pelicanX = 305;
 let pelicanY = 340; 
 let incrementPelican = 5; 
@@ -68,8 +72,7 @@ document.addEventListener('keyup', (event) => {
     isLeftArrow = false;
 });
 
-// draw pelican function  =============================================> TO DO can't manage rotation at end canvas
-
+// draw pelican function  
 function movePelican() {
 // draw pelican - make pelican visible 
     ctx.drawImage(pelicanImg, pelicanX, pelicanY, pelicanWidth, pelicanHeight); // image width and height is 170 , 170
@@ -104,7 +107,6 @@ function multiplyAndDrawStar() {
     animate();
 };
 
-
 function starsMoving(arr) {
 
     if (arr.length === 0) {
@@ -123,6 +125,8 @@ function starsMoving(arr) {
 
 function animate() {
    let intervalID =  setInterval(() => {     
+
+        audio.play();
        
         ctx.clearRect(0, 0, canvas.width, canvas.height)    // clears the whole canvas
         switchScreen();
@@ -145,7 +149,10 @@ function animate() {
                     if ((allStars[i].positionX > pelicanX 
                         && allStars[i].positionX + allStars[i].starRadius < pelicanX + pelicanWidth) && 
                         (allStars[i].positionY + allStars[i].starRadius > pelicanY)) {
+                        
                         score++;
+                        
+
                         // place the star at some random position outside the canvas
                         allStars[i].positionY = 2000
                     }     
@@ -153,9 +160,14 @@ function animate() {
             
               // condition for missed star
             else if (allStars[i].positionY + allStars[i].starRadius >= canvas.height && 
-                (allStars[i].positionY + allStars[i].starRadius < 2000) ) {
+                (allStars[i].positionY + allStars[i].starRadius < 2000 ) ) {
                 clearInterval(intervalID);
+
+                audio.pause();
+                audio.currentTime = 0;
+                
                 gameOver();  
+                
             }
             
             // add new stars below
@@ -175,6 +187,7 @@ function animate() {
 function gameOver() {
         ctx.font = 'lighter 25px Raleway'; 
         ctx.fillText('game over', 370, 210);
+
 
         setTimeout(function() {
             GameOverScreen();
