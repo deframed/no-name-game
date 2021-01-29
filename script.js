@@ -236,6 +236,7 @@ buttonStart.addEventListener('click', () => {
 buttonAgain.addEventListener('click', () => {      
     clearElem(buttonAgain);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    score = 0;
     allStars = []; 
     pelicanX = 305;
     switchScreen(); 

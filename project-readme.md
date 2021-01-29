@@ -104,8 +104,8 @@ score - update
 
 ### Git
 URls for the project repo and deploy
-[Link Repo](http://github.com)
-[Link Deploy](http://github.com)
+[Link Repo](https://github.com/deframed/no-name-game.git)
+[Link Deploy](https://deframed.github.io/no-name-game/)
 
 
 ### Slides
